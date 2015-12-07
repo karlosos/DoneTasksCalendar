@@ -109,6 +109,18 @@ def do_task(task_name):
     conn.commit()
     c.close()
 
+def get_last(limit=5):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    t = (limit, )
+    c.execute('SELECT name, date FROM task INNER JOIN registry ON task.id_task = registry.id_task ORDER BY registry.date DESC LIMIT ?', t)
+    results = c.fetchall()
+
+    for row in results:
+        print row
+
+
 create_db()
 #create_task("dodawanie7", "dodawaj")
-#do_task("dodawanie")
+do_task("dodawanie")
+get_last()
