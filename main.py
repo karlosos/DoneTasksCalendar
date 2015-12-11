@@ -135,18 +135,31 @@ def get_last(limit=5):
     for row in results:
         print row
 
-# def get_time(days=365):
-#     conn = sqlite3.connect(DB_PATH)
-#     c = conn.cursor()
-#     today = datetime.now()-timedelta(days=days)
-#     today = today.strftime("%Y-%m-%d")
-#     t = (today, )
-#     c.execute('SELECT name, date FROM task INNER JOIN registry ON task.id_task = registry.id_task WHERE registry.date >= ? ORDER BY registry.date', t)
-#     results = c.fetchall()
-#
-#
-#     for row in results:
-#         print row
+def get_time(days=365):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    today = datetime.now()-timedelta(days=days)
+    today = today.strftime("%Y-%m-%d")
+    t = (today, )
+
+    c.execute('SELECT name, date FROM task INNER JOIN registry ON task.id_task = registry.id_task WHERE registry.date >= ? ORDER BY registry.date', t)
+    db_results = c.fetchall()
+    results = []
+    previous_date = None
+    day_counter = 1
+
+    for row in db_results:
+        date =  datetime.strptime(row[1], "%Y-%m-%d")
+        if date == previous_date:
+            day_counter += 1
+        else:
+            timestamp = (date - datetime(1970, 1, 1)).total_seconds()
+            result_row = (timestamp, day_counter)
+            results.append(result_row)
+            day_counter = 1
+        previous_date = date
+    return results
+
 
 
 create_db()
@@ -154,4 +167,4 @@ create_db()
 do_task("dodawanie")
 #add_colors(COLORS)
 get_last()
-# get_time()
+print get_time()
