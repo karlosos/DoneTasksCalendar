@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 import random
 
 __author__ = 'jupiter'
@@ -8,6 +8,13 @@ import os
 
 PATH = os.path.expanduser('~/.taskgraph/')
 DB_PATH = PATH + "taskgraph.db"
+#ECD078 - zloto
+#C02942 - czerwien
+#53777A - niebieski
+#CFF09E - morski
+#C7F464 - zielony
+#556270 - granatowy
+COLORS = ("#ECD078","#C02942", "#53777A", "#CFF09E", "#C7F464", "#556270")
 
 def create_db():
     # If path not exist create one: ~/.taskgraph
@@ -54,6 +61,15 @@ def create_db():
     #     """
     # )
 
+    conn.commit()
+    c.close()
+
+def add_colors(colors):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    for color in colors:
+        values = (color,)
+        c.execute("INSERT INTO colors (color) VALUES (?)", values)
     conn.commit()
     c.close()
 
@@ -119,8 +135,23 @@ def get_last(limit=5):
     for row in results:
         print row
 
+# def get_time(days=365):
+#     conn = sqlite3.connect(DB_PATH)
+#     c = conn.cursor()
+#     today = datetime.now()-timedelta(days=days)
+#     today = today.strftime("%Y-%m-%d")
+#     t = (today, )
+#     c.execute('SELECT name, date FROM task INNER JOIN registry ON task.id_task = registry.id_task WHERE registry.date >= ? ORDER BY registry.date', t)
+#     results = c.fetchall()
+#
+#
+#     for row in results:
+#         print row
+
 
 create_db()
 #create_task("dodawanie7", "dodawaj")
 do_task("dodawanie")
+#add_colors(COLORS)
 get_last()
+# get_time()
