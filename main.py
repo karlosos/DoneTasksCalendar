@@ -135,14 +135,18 @@ def get_last(limit=5):
     for row in results:
         print row
 
-def get_time(days=365):
+def get_time(task=None, days=365):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     today = datetime.now()-timedelta(days=days)
     today = today.strftime("%Y-%m-%d")
     t = (today, )
 
-    c.execute('SELECT name, date FROM task INNER JOIN registry ON task.id_task = registry.id_task WHERE registry.date >= ? ORDER BY registry.date', t)
+    if task == None:
+        c.execute('SELECT name, date FROM task INNER JOIN registry ON task.id_task = registry.id_task WHERE registry.date >= ? ORDER BY registry.date', t)
+    else:
+        t = (today, task, task, task)
+        c.execute('SELECT name, date FROM task INNER JOIN registry ON task.id_task = registry.id_task WHERE registry.date >= ? AND (task.short_name = ? OR task.name = ? or task.id_task = ?)ORDER BY registry.date', t)
     db_results = c.fetchall()
     results = []
     previous_date = None
@@ -167,4 +171,6 @@ create_db()
 do_task("dodawanie")
 #add_colors(COLORS)
 get_last()
+print get_time("dodawanie")
+print "WSZYSTKIE"
 print get_time()
