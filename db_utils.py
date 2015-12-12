@@ -53,12 +53,11 @@ def create_db():
             );
         """
     )
-    #
-    # c.execute(
-    #     """
-    #         INSERT INTO colors (color) VALUES ("#99E3B6")
-    #     """
-    # )
+
+    try:
+        add_colors(COLORS)
+    except:
+        None
 
     conn.commit()
     c.close()
@@ -162,3 +161,6 @@ def get_time(task=None, days=365):
             day_counter = 1
         previous_date = date
     return results
+
+def delete_db():
+    os.remove(DB_PATH)
