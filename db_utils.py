@@ -116,7 +116,8 @@ def do_task(task_name):
                 print "Brak takiego taska"
 
     if 'task_id' in locals():
-        today = datetime.now().strftime("%Y-%m-%d")
+        #today = datetime.now().strftime("%Y-%m-%d")
+        today = datetime.now()
         values = (task_id, today)
         c.execute("INSERT INTO registry (id_task, date) VALUES (?,?)", values)
 
@@ -124,7 +125,7 @@ def do_task(task_name):
     c.close()
 
 def get_last(limit=5):
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, detect_types=sqlite3.PARSE_DECLTYPES)
     c = conn.cursor()
     t = (limit, )
     c.execute('SELECT name, date FROM task INNER JOIN registry ON task.id_task = registry.id_task ORDER BY registry.date DESC LIMIT ?', t)
@@ -150,15 +151,26 @@ def get_time(task=None, days=365):
     previous_date = None
     day_counter = 1
 
-    for row in db_results:
-        date =  datetime.strptime(row[1], "%Y-%m-%d")
-        if date == previous_date:
+    last = len(db_results) - 1
+    for i, row in enumerate(db_results):
+        #date =  datetime.strptime(row[1], "%Y-%m-%d")
+        date = row[1]
+        if date == previous_date or previous_date == None:
             day_counter += 1
         else:
             timestamp = (date - datetime(1970, 1, 1)).total_seconds()
             result_row = (timestamp, day_counter)
+            print result_row
             results.append(result_row)
             day_counter = 1
+
+        if i == last:
+            timestamp = (date - datetime(1970, 1, 1)).total_seconds()
+            result_row = (timestamp, day_counter)
+            print result_row
+            results.append(result_row)
+            day_counter = 1
+
         previous_date = date
     return results
 
