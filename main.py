@@ -29,15 +29,15 @@ last = len(json_rows)-1
 output = ""
 for i, json_row in enumerate(json_rows):
     if i == 0:
-        output += "{"
+        output += "{\r\n"
 
     if i == last:
-        output += json_row
+        output += "\t" + json_row + "\r\n"
         output += "}"
     else:
-        output += json_row + ","
+        output += "\t" + json_row + ",\r\n"
 
 print output
-text_file = open("data.json", "w")
+text_file = open("html\data.json", "w")
 text_file.write(output)
 text_file.close()

@@ -153,21 +153,22 @@ def get_time(task=None, days=365):
 
     last = len(db_results) - 1
     for i, row in enumerate(db_results):
-        #date =  datetime.strptime(row[1], "%Y-%m-%d")
-        date = row[1]
+        try:
+            date = datetime.strptime(row[1], "%Y-%m-%d")
+        except:
+            date = datetime.strptime(row[1], '%Y-%m-%d %H:%M:%S.%f')
+        #date = row[1]
         if date == previous_date or previous_date == None:
             day_counter += 1
         else:
             timestamp = (date - datetime(1970, 1, 1)).total_seconds()
             result_row = (timestamp, day_counter)
-            print result_row
             results.append(result_row)
             day_counter = 1
 
         if i == last:
             timestamp = (date - datetime(1970, 1, 1)).total_seconds()
             result_row = (timestamp, day_counter)
-            print result_row
             results.append(result_row)
             day_counter = 1
 
