@@ -1,43 +1,22 @@
 import db_utils
+import html_utils
 
 import json
 __author__ = 'jupiter'
 
-
+#Cleaning db
 #db_utils.delete_db()
 
+#Creating db - adding basic colors
 db_utils.create_db()
+
+#Creating task
 #db_utils.create_task("dodawanie", "cosinnego")
+
+#Doing task
 db_utils.do_task("dodawanie")
-#
-#db_utils.get_last()
-#print db_utils.get_time()
-#print "WSZYSTKIE"
-#print db_utils.get_time()
 
-db_utils.get_time()
-
-# JSON DUMP
-json_rows = []
-for row in db_utils.get_time():
-    timestamp = str(row[0])
-    count = str(row[1])
-    json_row = '"' + timestamp + '"' + ":" + count
-    json_rows.append(json_row)
-
-last = len(json_rows)-1
-output = ""
-for i, json_row in enumerate(json_rows):
-    if i == 0:
-        output += "{\r\n"
-
-    if i == last:
-        output += "\t" + json_row + "\r\n"
-        output += "}"
-    else:
-        output += "\t" + json_row + ",\r\n"
+output = html_utils.json_get_time()
 
 print output
-text_file = open("html\data.json", "w")
-text_file.write(output)
-text_file.close()
+
