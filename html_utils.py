@@ -20,7 +20,7 @@ def json_get_time_all():
             output += "}"
         else:
             output += "\t" + json_row + ",\r\n"
-    text_file = open("html\data.json", "w")
+    text_file = open("html/data.json", "w")
     text_file.write(output)
     text_file.close()
     return output

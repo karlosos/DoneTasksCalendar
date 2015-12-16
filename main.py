@@ -16,7 +16,7 @@ db_utils.create_db()
 #Doing task
 db_utils.do_task("dodawanie")
 
-output = html_utils.json_get_time()
+output = html_utils.json_get_time_all()
 
 print output
 
