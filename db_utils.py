@@ -122,16 +122,21 @@ def do_task(task_name):
     conn.commit()
     c.close()
 
-def get_last(limit=5):
+def get_last(task=None, limit=5):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     t = (limit, )
-    c.execute('SELECT name, date FROM task INNER JOIN registry ON task.id_task = registry.id_task ORDER BY registry.date DESC LIMIT ?', t)
+    if task == None:
+        c.execute('SELECT name, date FROM task INNER JOIN registry ON task.id_task = registry.id_task ORDER BY registry.date DESC LIMIT ?', t)
+    else:
+        t = (task, task, task, limit)
+        c.execute('SELECT name, date FROM task INNER JOIN registry ON task.id_task = registry.id_task WHERE task.name = ? OR task.short_name = ? OR task.id_task = ? ORDER BY registry.date DESC LIMIT ?', t)
+
     results = c.fetchall()
 
     r_result = []
     for row in results:
-        print row
+        #print row
         r_result.append(row)
 
     return r_result

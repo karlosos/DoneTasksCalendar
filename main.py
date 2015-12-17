@@ -40,7 +40,7 @@ if len(sys.argv) > 1:
         try:
             if len(sys.argv) > 2:
                 name = arguments[2]
-                print db_utils.get_last()
+                print db_utils.get_last(name)
             else:
                 print db_utils.get_last()
         except:
