@@ -1,4 +1,3 @@
-__author__ = 'jupiter'
 import db_utils
 
 def json_get_time_all():

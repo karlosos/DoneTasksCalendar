@@ -1,5 +1,3 @@
-__author__ = 'jupiter'
-
 from datetime import date, datetime, timedelta
 import random
 import sqlite3
@@ -99,19 +97,19 @@ def do_task(task_name):
     result = c.fetchone()
     if result:
         task_id = result[0]
-        print task_id
+        #print task_id
     else:
         c.execute('SELECT id_task FROM task WHERE short_name=?', t)
         result = c.fetchone()
         if result:
             task_id = result[0]
-            print task_id
+            #print task_id
         else:
             c.execute('SELECT id_task FROM task WHERE id_task=?', t)
             result = c.fetchone()
             if result:
                 task_id = result[0]
-                print task_id
+                #print task_id
             else:
                 print "Brak takiego taska"
 
@@ -125,14 +123,19 @@ def do_task(task_name):
     c.close()
 
 def get_last(limit=5):
-    conn = sqlite3.connect(DB_PATH, detect_types=sqlite3.PARSE_DECLTYPES)
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     t = (limit, )
     c.execute('SELECT name, date FROM task INNER JOIN registry ON task.id_task = registry.id_task ORDER BY registry.date DESC LIMIT ?', t)
     results = c.fetchall()
 
+    r_result = []
     for row in results:
         print row
+        r_result.append(row)
+
+    return r_result
+
 
 def get_time(task=None, days=365):
     conn = sqlite3.connect(DB_PATH)
