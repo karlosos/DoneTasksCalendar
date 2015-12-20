@@ -183,5 +183,13 @@ def get_time(task=None, days=365):
         previous_date = date
     return results
 
+def get_tasks_info():
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute('SELECT * FROM task')
+    db_results = c.fetchall()
+    print db_results
+    return db_results
+
 def delete_db():
     os.remove(DB_PATH)

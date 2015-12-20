@@ -8,6 +8,9 @@ import sys
 db_utils.create_db()
 output = html_utils.json_get_time_all()
 
+#db_utils.get_tasks_info()
+html_utils.json_every_task()
+
 # Switch
 arguments = sys.argv
 print arguments
