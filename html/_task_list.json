@@ -1,5 +1,7 @@
 {
-	hejo,
-	dodawanie,
-	programowanie
+	"tasks": [
+		"hejo",
+		"dodawanie",
+		"programowanie"
+	]
 }
