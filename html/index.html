@@ -16,6 +16,7 @@
       var date = new Date(new Date().setYear(new Date().getFullYear() - 1));
       cal.init({
         start: date,
+        itemSelector: "#cal-heatmap",
         range: 13,
         data: "data.json",
         dataType: "json",
@@ -27,17 +28,16 @@
 
 
     <script>
-      // TODO Multiple calendars
-      // $.getJSON("_task_list.json", function(json) {
-      //   var tasks = json.tasks
+      // TODO It's like cal-heatmap require more time and it's done of main loop
+      //  $.getJSON("_task_list.json", function(json) {
+      //   var tasks = json.tasks;
+      //   var div = document.getElementById('output');
       //   console.log(tasks.length);
       //   for(i=0; i<tasks.length; i++) {
-      //     console.log(tasks[i])
-      //     document.write("<h2>All</h2><div id='"+tasks[i]+"'></div>")
-      //
-      //     var cal = new CalHeatMap();
+      //     console.log(tasks[i]);
+      //     div.innerHTML = div.innerHTML + "<h2>"+tasks[i]+"</h2><div id='"+tasks[i]+"'></div>";
       //     var date = new Date(new Date().setYear(new Date().getFullYear() - 1));
-      //   	cal.init({
+      //   	new CalHeatMap().init({
       //       start: date,
       //       itemSelector: "#"+tasks[i],
       //       range: 13,
@@ -47,8 +47,8 @@
       //       subDomain: "day"
       //     });
       //   }
-      //   //console.log(); // this will show the info it in firebug console
-      // });
+        //console.log(); // this will show the info it in firebug console
+      });
     </script>
   </div>
   </body>

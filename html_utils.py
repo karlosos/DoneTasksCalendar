@@ -34,13 +34,13 @@ def json_list_tasks(task_names):
     last = len(task_names)-1
     for i, name in enumerate(task_names):
         if i == 0:
-            output += "{\r\n"
+            output += "{\r\n\t\"tasks\": [\r\n"
 
         if i == last:
-            output += "\t" + name + "\r\n"
-            output += "}"
+            output += "\t\t\"" + name + "\"\r\n"
+            output += "\t] \r\n}"
         else:
-            output += "\t" + name + ",\r\n"
+            output += "\t\t\"" + name + "\",\r\n"
 
     text_file = open("html/_task_list.json", "w")
     text_file.write(output)
