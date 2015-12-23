@@ -59,3 +59,45 @@ def json_every_task():
         json_get_time_all(name, file)
 
     json_list_tasks(task_names)
+
+def html_every_task():
+    tasks = db_utils.get_tasks_info()
+    task_names = []
+    for task in tasks:
+        name = task[1]
+        task_names.append(name)
+        html_task(name)
+
+def html_task(task):
+    html = """
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <script src="src/d3.min.js"></script>
+        <link rel="stylesheet" href="src/cal-heatmap.css" />
+        <script type="text/javascript" src="src/cal-heatmap.min.js"></script>
+        <script type="text/javascript" src="jquery-2.1.4.min.js"></script>
+      </head>
+      <body>
+    """
+    html += "<h2>"+task+"</h2><div id='"+task+"'></div>"
+    html += "<script>"
+    html +=  """
+        var date = new Date(new Date().setYear(new Date().getFullYear() - 1));
+        new CalHeatMap().init({
+             start: date,
+             itemSelector: \"#"""+task+"""\",
+             range: 13,
+             data: \""""+task+""".json",
+             dataType: \"json\",
+             domain: \"month\",
+             subDomain: \"day\"
+           }); """
+    html += "</script>"
+    html += """
+    </body>
+    </html>
+    """
+    text_file = open("html/"+task+".html", "w")
+    text_file.write(html)
+    text_file.close()

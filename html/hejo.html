@@ -1,0 +1,24 @@
+
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <script src="src/d3.min.js"></script>
+        <link rel="stylesheet" href="src/cal-heatmap.css" />
+        <script type="text/javascript" src="src/cal-heatmap.min.js"></script>
+        <script type="text/javascript" src="jquery-2.1.4.min.js"></script>
+      </head>
+      <body>
+    <h2>hejo</h2><div id='hejo'></div><script>
+        var date = new Date(new Date().setYear(new Date().getFullYear() - 1));
+        new CalHeatMap().init({
+             start: date,
+             itemSelector: "#hejo",
+             range: 13,
+             data: "hejo.json",
+             dataType: "json",
+             domain: "month",
+             subDomain: "day"
+           }); </script>
+    </body>
+    </html>
+    

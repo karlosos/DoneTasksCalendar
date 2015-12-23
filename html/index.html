@@ -29,25 +29,14 @@
 
     <script>
       // TODO It's like cal-heatmap require more time and it's done of main loop
-      //  $.getJSON("_task_list.json", function(json) {
-      //   var tasks = json.tasks;
-      //   var div = document.getElementById('output');
-      //   console.log(tasks.length);
-      //   for(i=0; i<tasks.length; i++) {
-      //     console.log(tasks[i]);
-      //     div.innerHTML = div.innerHTML + "<h2>"+tasks[i]+"</h2><div id='"+tasks[i]+"'></div>";
-      //     var date = new Date(new Date().setYear(new Date().getFullYear() - 1));
-      //   	new CalHeatMap().init({
-      //       start: date,
-      //       itemSelector: "#"+tasks[i],
-      //       range: 13,
-      //       data: tasks[i]+".json",
-      //       dataType: "json",
-      //       domain: "month",
-      //       subDomain: "day"
-      //     });
-      //   }
-        //console.log(); // this will show the info it in firebug console
+       $.getJSON("_task_list.json", function(json) {
+        var tasks = json.tasks;
+        var div = document.getElementById('output');
+        console.log(tasks.length);
+        for(i=0; i<tasks.length; i++) {
+          div.innerHTML = div.innerHTML + "<iframe src=\""+tasks[i]+".html\" frameborder=0 width=\"100%\" height=\"210px\"></iframe>";
+        }
+        console.log(); // this will show the info it in firebug console
       });
     </script>
   </div>
