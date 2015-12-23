@@ -4,7 +4,7 @@
     <script src="src/d3.min.js"></script>
     <link rel="stylesheet" href="src/cal-heatmap.css" />
     <script type="text/javascript" src="src/cal-heatmap.min.js"></script>
-    <script type="text/javascript" src="jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="src/jquery-2.1.4.min.js"></script>
   </head>
   <body>
     <div id="output">
@@ -29,12 +29,12 @@
 
     <script>
       // TODO It's like cal-heatmap require more time and it's done of main loop
-       $.getJSON("_task_list.json", function(json) {
+       $.getJSON("/data/_task_list.json", function(json) {
         var tasks = json.tasks;
         var div = document.getElementById('output');
         console.log(tasks.length);
         for(i=0; i<tasks.length; i++) {
-          div.innerHTML = div.innerHTML + "<iframe src=\""+tasks[i]+".html\" frameborder=0 width=\"100%\" height=\"210px\"></iframe>";
+          div.innerHTML = div.innerHTML + "<iframe src=\"html/"+tasks[i]+".html\" frameborder=0 width=\"100%\" height=\"210px\"></iframe>";
         }
         console.log(); // this will show the info it in firebug console
       });

@@ -8,3 +8,5 @@ build/
 .coverage
 
 .idea/
+
+html/_*

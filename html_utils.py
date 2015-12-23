@@ -1,6 +1,6 @@
 import db_utils
 
-def json_get_time_all(task = None, file = "html/data.json"):
+def json_get_time_all(task = None, file = "html/_data.json"):
     json_rows = []
     if task is None:
         db_result = db_utils.get_time()
@@ -53,7 +53,7 @@ def json_every_task():
         id = task[0]
         name = task[1]
         short_name = task[2]
-        file = "html/"+name+".json"
+        file = "html/_"+name+".json"
 
         task_names.append(name)
         json_get_time_all(name, file)
@@ -83,12 +83,12 @@ def html_task(task):
     html += "<h2>"+task+"</h2><div id='"+task+"'></div>"
     html += "<script>"
     html +=  """
-        var date = new Date(new Date().setYear(new Date().getFullYear() - 1));
-        new CalHeatMap().init({
+    var date = new Date(new Date().setYear(new Date().getFullYear() - 1));
+    new CalHeatMap().init({
              start: date,
              itemSelector: \"#"""+task+"""\",
              range: 13,
-             data: \""""+task+""".json",
+             data: \"_"""+task+""".json",
              dataType: \"json\",
              domain: \"month\",
              subDomain: \"day\"
@@ -98,6 +98,6 @@ def html_task(task):
     </body>
     </html>
     """
-    text_file = open("html/"+task+".html", "w")
+    text_file = open("html/_"+task+".html", "w")
     text_file.write(html)
     text_file.close()
