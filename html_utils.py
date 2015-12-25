@@ -31,14 +31,15 @@ def json_get_time_all(task = None, file = "html/_data.json"):
 
 def json_list_tasks(task_names):
     output = ""
+    output += "{\r\n\t\"tasks\": [\r\n"
+    output += "\t\t\"" + "data" + "\",\r\n"
     last = len(task_names)-1
     for i, name in enumerate(task_names):
-        if i == 0:
-            output += "{\r\n\t\"tasks\": [\r\n"
 
         if i == last:
             output += "\t\t\"" + name + "\"\r\n"
             output += "\t] \r\n}"
+
         else:
             output += "\t\t\"" + name + "\",\r\n"
 
@@ -58,6 +59,7 @@ def json_every_task():
         task_names.append(name)
         json_get_time_all(name, file)
 
+    json_get_time_all()     # Create _data.json file
     json_list_tasks(task_names)
 
 def html_every_task():
@@ -67,6 +69,8 @@ def html_every_task():
         name = task[1]
         task_names.append(name)
         html_task(name)
+
+    html_task("data")
 
 def html_task(task):
     html = """

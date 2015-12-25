@@ -8,33 +8,14 @@
   </head>
   <body>
     <div id="output">
-    <h2>All</h2>
-    <div id="cal-heatmap"></div>
-
-    <script>
-      var cal = new CalHeatMap();
-      var date = new Date(new Date().setYear(new Date().getFullYear() - 1));
-      cal.init({
-        start: date,
-        itemSelector: "#cal-heatmap",
-        range: 13,
-        data: "data.json",
-        dataType: "json",
-        domain: "month",
-        subDomain: "day"
-      });
-    </script>
-
-
-
     <script>
       // TODO It's like cal-heatmap require more time and it's done of main loop
-       $.getJSON("/data/_task_list.json", function(json) {
+       $.getJSON("_task_list.json", function(json) {
         var tasks = json.tasks;
         var div = document.getElementById('output');
         console.log(tasks.length);
         for(i=0; i<tasks.length; i++) {
-          div.innerHTML = div.innerHTML + "<iframe src=\"html/"+tasks[i]+".html\" frameborder=0 width=\"100%\" height=\"210px\"></iframe>";
+          div.innerHTML = div.innerHTML + "<iframe src=\"_"+tasks[i]+".html\" frameborder=0 width=\"100%\" height=\"210px\"></iframe>";
         }
         console.log(); // this will show the info it in firebug console
       });
