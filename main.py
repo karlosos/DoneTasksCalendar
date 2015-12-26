@@ -3,6 +3,7 @@
 import db_utils
 import html_utils
 import sys
+import subprocess
 
 # Init
 db_utils.create_db()
@@ -11,6 +12,10 @@ output = html_utils.json_get_time_all()
 #db_utils.get_tasks_info()
 html_utils.json_every_task()
 html_utils.html_every_task()
+
+# Render to image http://stackoverflow.com/questions/2192799/html-to-image-in-javascript-or-python
+subprocess.check_call(['phantomjs', 'generate_image.js', 'html/'])
+
 # Switch
 arguments = sys.argv
 print arguments
