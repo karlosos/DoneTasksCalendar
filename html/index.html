@@ -9,7 +9,6 @@
   <body>
     <div id="output">
     <script>
-      // TODO It's like cal-heatmap require more time and it's done of main loop
        $.getJSON("_task_list.json", function(json) {
         var tasks = json.tasks;
         var div = document.getElementById('output');
@@ -17,7 +16,6 @@
         for(i=0; i<tasks.length; i++) {
           div.innerHTML = div.innerHTML + "<iframe src=\"_"+tasks[i]+".html\" frameborder=0 width=\"100%\" height=\"210px\"></iframe>";
         }
-        console.log(); // this will show the info it in firebug console
       });
     </script>
   </div>

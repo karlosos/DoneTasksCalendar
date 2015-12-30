@@ -14,6 +14,10 @@ DB_PATH = PATH + "taskgraph.db"
 COLORS = ("#ECD078","#C02942", "#53777A", "#CFF09E", "#C7F464", "#556270")
 
 def create_db():
+    """
+    Init database with schema and basic colors
+    :return:
+    """
     # If path not exist create one: ~/.taskgraph
     if not os.path.exists(PATH):
         os.makedirs(PATH)
@@ -61,6 +65,11 @@ def create_db():
     c.close()
 
 def add_colors(colors):
+    """
+    Add color do db
+    :param colors:
+    :return:
+    """
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     for color in colors:
@@ -70,8 +79,12 @@ def add_colors(colors):
     c.close()
 
 def create_task(task_name, short_name=None):
-
-    # Connect to DB
+    """
+    Create task with given name and optional short_name
+    :param task_name:
+    :param short_name:
+    :return:
+    """
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute('SELECT id_color FROM colors')
@@ -88,6 +101,11 @@ def create_task(task_name, short_name=None):
     c.close()
 
 def do_task(task_name):
+    """
+    "DO" tasks with current date.
+    :param task_name:
+    :return:
+    """
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
 
@@ -123,6 +141,13 @@ def do_task(task_name):
     c.close()
 
 def get_last(task=None, limit=5):
+    """
+    Return last done tasks with name and date for given task
+    If task is not passed then return all tasks
+    :param task: tak.name, task.short_name, or task.id_task
+    :param limit: number of limited rows. ATTENTION! THESE ARE NOT DAYS
+    :return:
+    """
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     t = (limit, )
@@ -136,13 +161,19 @@ def get_last(task=None, limit=5):
 
     r_result = []
     for row in results:
-        #print row
         r_result.append(row)
 
     return r_result
 
 
 def get_time(task=None, days=365):
+    """
+    Return last done tasks with name and date for given task and limited by days
+    If task is not passed then return all tasks
+    :param task: task: tak.name, task.short_name, or task.id_task
+    :param days:
+    :return:
+    """
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     today = datetime.now()-timedelta(days=days)
@@ -184,6 +215,10 @@ def get_time(task=None, days=365):
     return results
 
 def get_tasks_info():
+    """
+    Return info of all tasks
+    :return:
+    """
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute('SELECT * FROM task')
@@ -192,4 +227,8 @@ def get_tasks_info():
     return db_results
 
 def delete_db():
+    """
+    Remove, clear database
+    :return:
+    """
     os.remove(DB_PATH)

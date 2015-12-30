@@ -1,6 +1,17 @@
 import db_utils
 
+"""
+JSON FUNCTIONS
+"""
 def json_get_time_all(task = None, file = "html/_data.json"):
+    """
+    Write json output of specified task to specified file
+    Get output for last 365 days
+    If no parameters are given then it get output for all tasks and save it to default location
+    :param task: name, shortname or id of task
+    :param file: path to output file
+    :return: return json output aswell
+    """
     json_rows = []
     if task is None:
         db_result = db_utils.get_time()
@@ -30,6 +41,11 @@ def json_get_time_all(task = None, file = "html/_data.json"):
     return output
 
 def json_list_tasks(task_names):
+    """
+    Write json list of tasks to file. Must have given array of tasks names
+    :param task_names: array of tasksnames
+    :return:
+    """
     output = ""
     output += "{\r\n\t\"tasks\": [\r\n"
     output += "\t\t\"" + "data" + "\",\r\n"
@@ -48,12 +64,14 @@ def json_list_tasks(task_names):
     text_file.close()
 
 def json_every_task():
+    """
+    Write json output of all tasks to individual files
+    :return:
+    """
     tasks = db_utils.get_tasks_info()
     task_names = []
     for task in tasks:
-        id = task[0]
         name = task[1]
-        short_name = task[2]
         file = "html/_"+name+".json"
 
         task_names.append(name)
@@ -62,7 +80,14 @@ def json_every_task():
     json_get_time_all()     # Create _data.json file
     json_list_tasks(task_names)
 
+"""
+HTML FUNCTIONS
+"""
 def html_every_task():
+    """
+    Iterate through every tasks and use html_task(task) to create html output
+    :return:
+    """
     tasks = db_utils.get_tasks_info()
     task_names = []
     for task in tasks:
@@ -73,6 +98,11 @@ def html_every_task():
     html_task("data")
 
 def html_task(task):
+    """
+    Write html output for specified task
+    :param task: it must be a name of a task. NOT short_name of id!
+    :return:
+    """
     html = """
     <!DOCTYPE html>
     <html>

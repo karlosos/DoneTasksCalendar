@@ -1,21 +1,3 @@
-//var name = "dodawanie";
-//var page = require('webpage').create();
-//var url = 'html/_'+name+'.html';
-//var output = 'html/_'+name+'.png';
-//
-//page.open(url, function (status) {
-//if (status !== 'success') {
-//    console.log('Unable to load the address!');
-//    phantom.exit();
-//} else {
-//    window.setTimeout(function () {
-//        page.render(output);
-//        phantom.exit();
-//    }, 1000); // Change timeout as required to allow sufficient time
-//}
-//});
-//
-
 var page = require('webpage').create(), loadInProgress = false, fs = require('fs');
 var htmlFiles = new Array();
 
