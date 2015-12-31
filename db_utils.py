@@ -2,6 +2,7 @@ from datetime import date, datetime, timedelta
 import random
 import sqlite3
 import os
+import html_utils
 
 PATH = os.path.expanduser('~/.taskgraph/')
 DB_PATH = PATH + "taskgraph.db"
@@ -99,6 +100,7 @@ def create_task(task_name, short_name=None):
     # http://stackoverflow.com/questions/22488763/sqlite-insert-query-not-working-with-python
     conn.commit()
     c.close()
+    html_utils.update_output()
 
 def do_task(task_name):
     """
@@ -139,6 +141,7 @@ def do_task(task_name):
 
     conn.commit()
     c.close()
+    html_utils.update_output()
 
 def get_last(task=None, limit=5):
     """
@@ -232,3 +235,16 @@ def delete_db():
     :return:
     """
     os.remove(DB_PATH)
+
+def get_color(id):
+    """
+    Return info of all colors
+    :return:
+    """
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    t = (id, )
+    c.execute('SELECT * FROM colors WHERE id_color = ?', t)
+    db_results = c.fetchall()
+    print db_results[0][1]
+    return db_results[0][1]

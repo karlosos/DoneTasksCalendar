@@ -1,4 +1,5 @@
 import db_utils
+import subprocess
 
 """
 JSON FUNCTIONS
@@ -92,12 +93,15 @@ def html_every_task():
     task_names = []
     for task in tasks:
         name = task[1]
+        color_id = task[3]
+        color = db_utils.get_color(color_id)
+        print color
         task_names.append(name)
-        html_task(name)
+        html_task(name, color)
 
     html_task("data")
 
-def html_task(task):
+def html_task(task, color=None):
     """
     Write html output for specified task
     :param task: it must be a name of a task. NOT short_name of id!
@@ -116,22 +120,52 @@ def html_task(task):
     """
     html += "<h2>"+task+"</h2><div id='"+task+"'></div>"
     html += "<script>"
-    html +=  """
-    var date = new Date(new Date().setYear(new Date().getFullYear() - 1));
-    new CalHeatMap().init({
-             start: date,
-             itemSelector: \"#"""+task+"""\",
-             range: 13,
-             data: \"_"""+task+""".json",
-             dataType: \"json\",
-             domain: \"month\",
-             subDomain: \"day\"
-           }); """
-    html += "</script>"
-    html += """
-    </body>
-    </html>
-    """
+    if color is None:
+        html +=  """
+        var date = new Date(new Date().setYear(new Date().getFullYear() - 1));
+        new CalHeatMap().init({
+                 start: date,
+                 itemSelector: \"#"""+task+"""\",
+                 range: 13,
+                 data: \"_"""+task+""".json",
+                 dataType: \"json\",
+                 domain: \"month\",
+                 subDomain: \"day\"
+               }); """
+        html += "</script>"
+        html += """
+        </body>
+        </html>
+        """
+    else:
+        html +=  """
+        var date = new Date(new Date().setYear(new Date().getFullYear() - 1));
+        new CalHeatMap().init({
+                 start: date,
+                 itemSelector: \"#"""+task+"""\",
+                 range: 13,
+                 data: \"_"""+task+""".json",
+                 dataType: \"json\",
+                 domain: \"month\",
+                 subDomain: \"day\",
+                 legendColors: [\""""+color+"""\", \""""+color+"""\"]
+               }); """
+        html += "</script>"
+        html += """
+        </body>
+        </html>
+        """
     text_file = open("html/_"+task+".html", "w")
     text_file.write(html)
     text_file.close()
+
+def update_output():
+    # Init
+    db_utils.create_db()
+
+    #db_utils.get_tasks_info()
+    json_every_task()
+    html_every_task()
+
+    # Render to image http://stackoverflow.com/questions/2192799/html-to-image-in-javascript-or-python
+    subprocess.check_call(['phantomjs', 'generate_image.js', 'html/'])
