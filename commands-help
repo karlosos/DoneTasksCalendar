@@ -1,0 +1,31 @@
+Actions:
+
+	DB oriented:
+		- clearing database	: clear
+		- rendering output	: output
+
+	Tasks oriented:
+		- creating task		: create -t
+		- "doing" task		: do
+		- getting last entries (from registry)	: get
+		- un"doing" latest task	: undo		
+		- deleting tasks	: remove -t
+
+	Colors oriented:
+		- creating new colors	: create -c
+		- deleting colors	: remove -c
+
+
+Functions:
+
+	clear	: clearing entire database
+	output	: generate all output or specified
+	create	: create task or color
+		-t	: create task 
+		name 	: name of task
+		-c 	: create color
+		
+	remove	: remove task or color
+	do	: do specified task
+	undo	: undo last or specified task from history
+	get	: get list of last done tasks with date or just last dates for specified task
