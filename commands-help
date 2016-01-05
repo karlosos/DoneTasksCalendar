@@ -20,12 +20,56 @@ Functions:
 
 	clear	: clearing entire database
 	output	: generate all output or specified
+		-a	: generate all
+		-html	: generate only html
+		-json	: generate only json
+
+		ex:
+			output -a 		: generate all output
+			output -a taskname 	: generate task for one output only
+			output -html taskname 	: generate html and json
+			output -json taskname 	: generate only json
 	create	: create task or color
 		-t	: create task 
-		name 	: name of task
+			create -t taskname shortname
+			ex: create -t "school programming" "programming"
+			TODO: Need to add colors
 		-c 	: create color
+			create -c hexcolor
+			ex: create -c #FFFFFF
 		
 	remove	: remove task or color
+		-t	: remove task
+			remove -t taskname
+			remove -t id
+			ex: remove -t 1
+			ex: remove -t "programming"
+		-c	: remove color
+			remove -c colorhex
+			remove -c id
+			ex: remove -c #FFFFFF
+
 	do	: do specified task
+		ex: do "programming"	: do programming with current date
+		-d	: do task with custom date
+			ex:
+			do -d taskname date
+			do -d "programming" "21-08-2014"
+
 	undo	: undo last or specified task from history
+		undo last		: undoing last done task
+		undo last [number]	: undo last n tasks
+					ex:
+					undo last 5
+		examples:
+			undo "programming"
+			undo "programming 5
 	get	: get list of last done tasks with date or just last dates for specified task
+		get last [number]	: get last done tasks
+					number is number of tasks
+					ex: get last 5
+		get last		: get last done task
+		get taskname		: get last done specified task
+					ex: get "programming"
+		get taskname 5		: get last done specified task with limit
+					ex: get "programming" 5 
