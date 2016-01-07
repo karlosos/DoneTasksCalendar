@@ -1,3 +1,5 @@
+#!/usr/bin/env
+
 """Taskagraph. Track your tasks.
 
 Usage:
@@ -5,6 +7,10 @@ Usage:
   main.py task do <name> [--date=<date>]
   main.py task add <name>
   main.py task remove <name>
+  main.py color add <color>
+  main.py color remove <color>
+  main.py last [--task=<name>][--limit=<limit>]
+  main.py undo [--task=<name>][--limit=<limit>][--id=<id>]
   main.py clear
   main.py output
   main.py (-h | --help)
