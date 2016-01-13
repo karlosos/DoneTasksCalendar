@@ -95,7 +95,7 @@ def html_every_task():
         name = task[1]
         color_id = task[3]
         color = db_utils.get_color(color_id)
-        print color
+        #print color
         task_names.append(name)
         html_task(name, color)
 

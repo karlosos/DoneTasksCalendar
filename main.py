@@ -28,15 +28,18 @@ import db_utils
 
 if __name__ == '__main__':
     arguments = docopt.docopt(__doc__)
-    print(arguments)
+    #print(arguments)
+    #print("-----")
 
     # task command
     if arguments['task'] == True:
-        name = arguments['<name>']
+        name = arguments['<task_name>']
 
         if arguments['add'] == True:
             try:
-                db_utils.create_task(name[0])
+                name_s = name[0]
+                #db_utils.create_task(name[0])
+                db_utils.create_task(name_s)
             except:
                 print "Failed adding task"
 

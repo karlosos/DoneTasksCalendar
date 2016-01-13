@@ -3,7 +3,7 @@ var htmlFiles = new Array();
 
 var curdir = phantom.args[0] || fs.workingDirectory;
 var curdirList = fs.list(curdir);
-console.log("dir file count: " + curdirList.length);
+//console.log("dir file count: " + curdirList.length);
 
 for(var i = 0; i< curdirList.length; i++) {
     var fullpath = curdir + fs.separator + curdirList[i];
@@ -37,7 +37,7 @@ page.onLoadStarted = function() {
 page.onLoadFinished = function() {
     loadInProgress = false;
     var dest = "html/images/" + fileName.substr(6, fileName.length) + ".png";
-    console.log('saving: ' + dest);
+    //console.log('saving: ' + dest);
 
     page.evaluate(
       function () {
@@ -47,9 +47,9 @@ page.onLoadFinished = function() {
       phantom.args[1]
     );
 
-    console.log("1 sec");
+    //console.log("1 sec");
     setTimeout(function () {
-        console.log("3 sec");
+        //console.log("3 sec");
         page.render(dest);
     }, 1000); // Change timeout as required to allow sufficient time
 

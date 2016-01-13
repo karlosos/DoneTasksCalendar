@@ -226,7 +226,7 @@ def get_tasks_info():
     c = conn.cursor()
     c.execute('SELECT * FROM task')
     db_results = c.fetchall()
-    print db_results
+    #print db_results
     return db_results
 
 def delete_db():
@@ -246,5 +246,5 @@ def get_color(id):
     t = (id, )
     c.execute('SELECT * FROM colors WHERE id_color = ?', t)
     db_results = c.fetchall()
-    print db_results[0][1]
+    #print db_results[0][1]
     return db_results[0][1]
